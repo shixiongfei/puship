@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-  Copyright (c) 2017 Xiongfei Shi <jenson.shixf@gmail.com>
+  Copyright (c) 2017, 2018 Xiongfei Shi <jenson.shixf@gmail.com>
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,7 @@
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
   THE SOFTWARE.
-  
+
         http://shixf.com/
 '''
 
@@ -55,12 +55,12 @@ def _url_read(url, postdata=None, method=None):
     try:
         req = Request(url, data=postdata)
 
-        req.add_header('User-Agent', 'PushIP/1.0 (jenson.shixf@gmail.com)')
+        req.add_header('User-Agent', 'PushIP/1.1 (jenson.shixf@gmail.com)')
         req.add_header('Content-type', 'application/x-www-form-urlencoded')
 
         if not method is None:
             req.get_method = lambda: method
-        
+
         urlItem = urlopen(req, timeout=10)
         result = urlItem.read()
         urlItem.close()
@@ -84,7 +84,7 @@ def _get_lanip():
     return _command('hostname -I').replace('\n', '')
 
 def _get_wanip():
-    myip = _url_read('http://shixf.com/api/getip')
+    myip = _url_read('https://shixf.com/api/getip')
     if myip is None:
         return '0.0.0.0'
     return myip
